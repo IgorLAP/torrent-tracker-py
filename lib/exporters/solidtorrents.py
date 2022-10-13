@@ -1,11 +1,11 @@
-from helpers.get_bs4 import get_bs4
 from helpers.seed_formatter import seed_formatter
+from lib.get_soup_async import get_soup_async
 
 
-def solidtorrents(query: str):
+async def solidtorrents(query: str):
     base_url = 'https://solidtorrents.to'
     url = f'{base_url}/search?q={query}'
-    site = get_bs4(url)
+    site = await get_soup_async(url)
     table_columns = site.select('.card.search-result.my-2')
     if len(table_columns) == 0:
         return []
