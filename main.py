@@ -1,6 +1,8 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 import models
+from helpers.query_formatter import query_formatter
 from lib.exporters.lime import lime
 from lib.exporters.seven import seven
 from lib.exporters.solidtorrents import solidtorrents
@@ -8,9 +10,23 @@ from lib.exporters.torrentcsv import torrentcsv
 from lib.exporters.torrentgalaxy import torrentgalaxy
 from lib.get_hotpicks import get_hotpicks
 from lib.get_magnetlink import get_magnetlink
-from helpers.query_formatter import query_formatter
 
 app = FastAPI()
+
+origins = [
+    'http://localhost:8000/',
+    'http://localhost:5173',
+    'https://torrent-tracker.netlify.app'
+]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/new-movies")
