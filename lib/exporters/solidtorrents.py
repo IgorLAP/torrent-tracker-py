@@ -10,9 +10,9 @@ def solidtorrents(query: str):
     if len(table_columns) == 0:
         return []
     torrents = []
-    columns = table_columns[3:13] \
+    columns = table_columns[0:10] \
         if table_columns[0].select('div.links a:last-child') is None \
-        else table_columns[0:10]
+        else table_columns[3:13]
     for item in columns:
         torrents.append({
             'name': item.select('h5.title')[0].text,

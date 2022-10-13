@@ -65,4 +65,5 @@ async def search_torrents(request: models.SearchTorrentsBody):
         formatted_query = query_formatter(query, pattern)
         torrents.extend(exporter(formatted_query))
 
+    torrents.sort(reverse=True, key=lambda e: e['seed'])
     return {"torrents": torrents}
